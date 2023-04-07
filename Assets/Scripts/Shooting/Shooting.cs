@@ -9,6 +9,6 @@ public class Shooting : MonoBehaviour
 
     protected void Shoot()
     {
-        Instantiate(bomb, transform.position, Quaternion.identity);
+        Instantiate(bomb, new (Mathf.Round(transform.position.x), Mathf.Round(transform.position.y)), Quaternion.identity);
     }
 }

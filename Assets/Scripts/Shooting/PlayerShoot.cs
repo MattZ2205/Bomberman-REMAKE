@@ -7,14 +7,20 @@ public class PlayerShoot : Shooting
 {
     float timer;
 
+    private void Start()
+    {
+        timer = rateo;
+    }
+
     void Update()
     {
         timer += Time.deltaTime;
-        if(timer >= rateo)
+        if (timer >= rateo)
         {
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 Shoot();
+                timer = 0;
             }
         }
     }

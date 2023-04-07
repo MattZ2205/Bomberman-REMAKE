@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MyPlayer : MonoBehaviour
 {
-    public void Kill()
+    void Kill()
     {
         GameManager.Instance.EndGame();
     }
