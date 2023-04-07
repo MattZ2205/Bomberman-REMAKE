@@ -9142,8 +9142,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   firstPoint: {fileID: 1710906855}
   lastPoint: {fileID: 1875693471}
-  xSize: 30
-  ySize: 30
+  xSize: 31
+  ySize: 31
   tile: {fileID: 11715043464587841, guid: 4f015a0a8c2cdfb498ededb062b3ab9d, type: 3}
 --- !u!4 &761944862
 Transform:
@@ -23579,6 +23579,7 @@ GameObject:
   - component: {fileID: 2131032556}
   - component: {fileID: 2131032560}
   - component: {fileID: 2131032562}
+  - component: {fileID: 2131032563}
   - component: {fileID: 2131032559}
   - component: {fileID: 2131032561}
   m_Layer: 0
@@ -23712,6 +23713,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAI: 0
   speed: 5
+--- !u!114 &2131032563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2131032554}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac57b1616a6a8c34eb434d5d34b7d5e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rateo: 5
+  bomb: {fileID: 2477165241512149784, guid: ce7944acdf6874a49bd9fb4170ed24dc, type: 3}
 --- !u!1 &2131280091
 GameObject:
   m_ObjectHideFlags: 0

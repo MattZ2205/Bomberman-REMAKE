@@ -9,8 +9,6 @@ public class Enemy : MonoBehaviour
 
     [HideInInspector] public bool isDead = false;
 
-    [HideInInspector] public bool IsDead { get; set; }
-
     private void OnDisable()
     {
         OnEnemyDeath?.Invoke();
@@ -20,5 +18,13 @@ public class Enemy : MonoBehaviour
     {
         isDead = true;
         gameObject.SetActive(false);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Bomb"))
+        {
+            Kill();
+        }
     }
 }

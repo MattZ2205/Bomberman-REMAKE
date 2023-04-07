@@ -1,18 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerShoot : MonoBehaviour
+public class PlayerShoot : Shooting
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    float timer;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        timer += Time.deltaTime;
+        if(timer >= rateo)
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Shoot();
+            }
+        }
     }
 }
