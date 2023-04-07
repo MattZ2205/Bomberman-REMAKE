@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1251217868269369499}
   - component: {fileID: -2345897832558314179}
   - component: {fileID: 8380499617885766074}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Tile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -113,8 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dropRate: 1
-  drops:
-  - {fileID: 558593980508078079, guid: b5d070724fec0274fbbab7f66fd13124, type: 3}
+  isDestroy: 0
 --- !u!54 &8380499617885766074
 Rigidbody:
   m_ObjectHideFlags: 0

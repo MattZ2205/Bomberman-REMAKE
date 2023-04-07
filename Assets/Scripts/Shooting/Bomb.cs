@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
     [SerializeField] float explosionTimer;
-    [SerializeField] GameObject[] explosion;
+    [SerializeField] GameObject explosion;
     [SerializeField] LayerMask mask;
 
-    int explosionRange = 1;
+    int explosionRange = 2;
     float timer;
     bool isDropped = false;
-
-    Coroutine expl;
 
     private void OnEnable()
     {
@@ -25,13 +24,14 @@ public class Bomb : MonoBehaviour
 
         if (timer >= explosionTimer)
         {
-            expl = StartCoroutine(Explosion());
+            StartCoroutine(Explosion());
+            timer = 0;
+            isDropped = false;
         }
     }
 
     IEnumerator Explosion()
     {
-        //explosion.SetActive(true);
         ControlNeighboor();
         yield return new WaitForSeconds(2);
         Destroy(gameObject);
@@ -39,10 +39,71 @@ public class Bomb : MonoBehaviour
 
     void ControlNeighboor()
     {
-        if (!Physics.Raycast(transform.position, transform.right, explosionRange, mask)) explosion[0].SetActive(true);
-        if (!Physics.Raycast(transform.position, -transform.right, explosionRange, mask)) explosion[1].SetActive(true);
-        if (!Physics.Raycast(transform.position, transform.up, explosionRange, mask)) explosion[2].SetActive(true);
-        if (!Physics.Raycast(transform.position, -transform.up, explosionRange, mask)) explosion[3].SetActive(true);
-        explosion[4].SetActive(true);
+        RaycastHit hit;
+        for (int i = 1; i <= explosionRange; i++)
+        {
+            if (Physics.Raycast(transform.position, transform.right, out hit, i, mask))
+            {
+                if (hit.transform.gameObject.layer == 11)
+                {
+                    Instantiate(explosion, new Vector3(transform.position.x + i, transform.position.y, 0), Quaternion.identity, transform);
+                    break;
+                }
+            }
+            else
+            {
+                Instantiate(explosion, new Vector3(transform.position.x + i, transform.position.y, 0), Quaternion.identity, transform);
+            }
+        }
+
+        for (int i = 1; i <= explosionRange; i++)
+        {
+            if (Physics.Raycast(transform.position, -transform.right, out hit, i, mask))
+            {
+                if (hit.transform.gameObject.layer == 11)
+                {
+                    Instantiate(explosion, new Vector3(transform.position.x - i, transform.position.y, 0), Quaternion.identity, transform);
+                    break;
+                }
+            }
+            else
+            {
+                Instantiate(explosion, new Vector3(transform.position.x - i, transform.position.y, 0), Quaternion.identity, transform);
+            }
+        }
+
+        for (int i = 1; i <= explosionRange; i++)
+        {
+            if (Physics.Raycast(transform.position, transform.up, out hit, i, mask))
+            {
+                if (hit.transform.gameObject.layer == 11)
+                {
+                    Instantiate(explosion, new Vector3(transform.position.x, transform.position.y + i, 0), Quaternion.identity, transform);
+                    break;
+                }
+            }
+            else
+            {
+                Instantiate(explosion, new Vector3(transform.position.x, transform.position.y + i, 0), Quaternion.identity, transform);
+            }
+        }
+
+        for (int i = 1; i <= explosionRange; i++)
+        {
+            if (Physics.Raycast(transform.position, -transform.up, out hit, i, mask))
+            {
+                if (hit.transform.gameObject.layer == 11)
+                {
+                    Instantiate(explosion, new Vector3(transform.position.x, transform.position.y - i, 0), Quaternion.identity, transform);
+                    break;
+                }
+            }
+            else
+            {
+                Instantiate(explosion, new Vector3(transform.position.x, transform.position.y - i, 0), Quaternion.identity, transform);
+            }
+        }
+
+        Instantiate(explosion, transform.position, Quaternion.identity, transform);
     }
 }
