@@ -7,6 +7,8 @@ public class Enemy : MonoBehaviour
     public delegate void DeadEnemyManagment();
     public static DeadEnemyManagment OnEnemyDeath;
 
+    [SerializeField] Score score;
+
     [HideInInspector] public bool isDead = false;
 
     private void OnDisable()
@@ -17,6 +19,7 @@ public class Enemy : MonoBehaviour
     public void Kill()
     {
         isDead = true;
+        score.AggScore(50);
         gameObject.SetActive(false);
     }
 

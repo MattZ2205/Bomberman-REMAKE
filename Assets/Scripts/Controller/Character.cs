@@ -8,7 +8,9 @@ public class Character : MonoBehaviour
     private CharacterMotor characterMotor;
     
     [SerializeField] bool isAI;
-    public float speed;
+    [SerializeField] LayerMask mask;
+
+    [HideInInspector] public float speed;
 
     private void Awake()
     {
@@ -18,7 +20,7 @@ public class Character : MonoBehaviour
 
     private void Update()
     {
-        characterInput.ReadInput(isAI ? Physics.Raycast(transform.position, transform.right, 0.7f) : false);
+        characterInput.ReadInput(isAI ? Physics.Raycast(transform.position, transform.right, 0.6f, mask) : false);
         characterMotor.Move(speed);
     }
 }

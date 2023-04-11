@@ -7,7 +7,7 @@ public class PlayerShoot : Shooting
 {
     float timer;
 
-    private void Start()
+    void Start()
     {
         timer = rateo;
     }

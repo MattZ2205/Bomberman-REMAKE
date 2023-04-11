@@ -1,19 +1,21 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Xml;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class TileSpawner : MonoBehaviour
 {
-    [SerializeField] Transform firstPoint, lastPoint;
     [SerializeField] int xSize, ySize;
     [SerializeField] GameObject tile;
-    [SerializeField] GameObject[] drops;
+    [SerializeField] GameObject drop;
+    [SerializeField] Transform[] spawnPoints;
 
     float probSpawn = 0.15f;
     GameObject[,] tiles;
-    //Vector3[,] tilePos;
-    //Vector3[,] emptyPos;
+    int nTiles = 0, capTiles = 5;
 
     private void OnEnable()
     {
@@ -27,36 +29,15 @@ public class TileSpawner : MonoBehaviour
 
     private void Start()
     {
-        //tilePos = new Vector3[xSize, ySize];
-        //emptyPos = new Vector3[xSize, ySize];
         tiles = new GameObject[xSize, ySize];
-        //InitializeArray();
+        SpawnTiles();
+    }
 
-        for (int i = 0; i < xSize; i++)
+    private void Update()
+    {
+        if (nTiles < capTiles)
         {
-            for (int j = 0; j < ySize; j++)
-            {
-                if (Random.value <= probSpawn)
-                {
-                    if (i % 2 == 1)
-                    {
-                        if (j % 2 == 0)
-                        {
-                            tiles[i, j] = Instantiate(tile, new Vector3(i, j, 0), Quaternion.identity);
-                        }
-                    }
-                    else
-                    {
-                        tiles[i, j] = Instantiate(tile, new Vector3(i, j, 0), Quaternion.identity);
-                    }
-                    //    emptyPos[i, j] = new(-1, -1, -1);
-                    //}
-                    //else
-                    //{
-                    //    tilePos[i, j] = new(-1, -1, -1);
-                    //}
-                }
-            }
+            SpawnTiles();
         }
     }
 
@@ -70,29 +51,57 @@ public class TileSpawner : MonoBehaviour
                 {
                     if (tiles[i, j].GetComponent<TileDrop>().isDestroy)
                     {
-                        int n = Random.Range(0, drops.Length);
-                        Instantiate(drops[n], new Vector3(i, j, 0), Quaternion.identity);
+                        if (!drop.activeSelf)
+                        {
+                            drop.transform.position = new Vector3(i, j, 0);
+                            drop.SetActive(true);
+                        }
+                        nTiles--;
                     }
-                    //Array di oggetti che contiene le tiles
-                    //Controllo di isDestroyed e relativo drop
                 }
             }
         }
     }
 
-    //void InitializeArray()
-    //{
-    //    Vector3 pos = Vector3.zero;
-    //    for (int i = 0; i < xSize; i++)
-    //    {
-    //        pos.y = 0;
-    //        for (int j = 0; j < ySize; j++)
-    //        {
-    //            tilePos[i, j] = pos;
-    //            emptyPos[i, j] = pos;
-    //            pos.y++;
-    //        }
-    //        pos.x++;
-    //    }
-    //}
+    void SpawnTiles()
+    {
+        for (int i = 0; i < xSize; i++)
+        {
+            for (int j = 0; j < ySize; j++)
+            {
+                bool isSpawnable = true;
+                for (int x = 0; x < spawnPoints.Length; x++)
+                {
+                    if ((spawnPoints[x].position.x == i && spawnPoints[x].position.y == j) ||
+                        (spawnPoints[x].position.x + 1 == i && spawnPoints[x].position.y == j) ||
+                        (spawnPoints[x].position.x - 1 == i && spawnPoints[x].position.y == j) ||
+                        (spawnPoints[x].position.x == i && spawnPoints[x].position.y + 1 == j) ||
+                        (spawnPoints[x].position.x == i && spawnPoints[x].position.y - 1 == j))
+                    {
+                        isSpawnable = false;
+                    }
+                }
+
+                if (Random.value <= probSpawn && isSpawnable)
+                {
+                    if (tiles[i, j] == null)
+                    {
+                        if (i % 2 == 1)
+                        {
+                            if (j % 2 == 0)
+                            {
+                                tiles[i, j] = Instantiate(tile, new Vector3(i, j, 0), Quaternion.identity);
+                                nTiles++;
+                            }
+                        }
+                        else
+                        {
+                            tiles[i, j] = Instantiate(tile, new Vector3(i, j, 0), Quaternion.identity);
+                            nTiles++;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

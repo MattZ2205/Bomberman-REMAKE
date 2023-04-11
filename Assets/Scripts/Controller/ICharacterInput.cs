@@ -25,7 +25,7 @@ public class PlayerInput : ICharacterInput
     }
 }
 
-public class AIInput : MonoBehaviour, ICharacterInput
+public class AIInput : ICharacterInput
 {
     public float axesX { get; private set; }
     public float axesY { get; private set; }

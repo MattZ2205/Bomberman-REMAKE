@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class Bomb : MonoBehaviour
@@ -9,7 +8,7 @@ public class Bomb : MonoBehaviour
     [SerializeField] GameObject explosion;
     [SerializeField] LayerMask mask;
 
-    int explosionRange = 2;
+    [HideInInspector] public int explosionRange;
     float timer;
     bool isDropped = false;
 

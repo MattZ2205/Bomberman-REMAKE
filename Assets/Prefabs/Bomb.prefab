@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2477165241512149786}
   - component: {fileID: 3325305884397834889}
   - component: {fileID: 6351165800779030466}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Bomb
   m_TagString: Bomb
   m_Icon: {fileID: 0}
@@ -103,6 +103,7 @@ MonoBehaviour:
   mask:
     serializedVersion: 2
     m_Bits: 3072
+  explosionRange: 1
 --- !u!58 &6351165800779030466
 CircleCollider2D:
   m_ObjectHideFlags: 0

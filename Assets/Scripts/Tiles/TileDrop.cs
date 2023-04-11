@@ -10,6 +10,14 @@ public class TileDrop : MonoBehaviour
     [SerializeField] float dropRate;
     public bool isDestroy = false;
 
+    private void Update()
+    {
+        if (transform.position.z != 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Bomb"))
@@ -19,7 +27,7 @@ public class TileDrop : MonoBehaviour
                 isDestroy = true;
                 OnTileDestroy?.Invoke();
             }
-            gameObject.SetActive(false);
+            Destroy(gameObject);
         }
     }
 }

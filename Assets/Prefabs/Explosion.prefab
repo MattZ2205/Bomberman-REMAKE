@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8442428754718667208}
   - component: {fileID: 832124933292559817}
   - component: {fileID: 7527546385129195962}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Explosion
   m_TagString: Bomb
   m_Icon: {fileID: 0}
@@ -96,5 +96,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 10}
+  m_Size: {x: 0.8, y: 0.8, z: 10}
   m_Center: {x: 0, y: 0, z: 0}

@@ -4,16 +4,29 @@ using UnityEngine;
 
 public class MyPlayer : MonoBehaviour
 {
-    void Kill()
+    [SerializeField] float radius;
+    [SerializeField] LayerMask mask;
+
+    [HideInInspector] public int life;
+
+    void ManageLife()
     {
-        GameManager.Instance.EndGame();
+        if (life == 0)
+        {
+            StartCoroutine(GameManager.Instance.EndGame());
+        }
+        else
+        {
+            life--;
+        }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void Update()
     {
-        if (other.CompareTag("Bomb"))
+        Collider[] other = Physics.OverlapSphere(transform.position, radius, mask);
+        if (other.Length > 0)
         {
-            Kill();
+            ManageLife();
         }
     }
 }

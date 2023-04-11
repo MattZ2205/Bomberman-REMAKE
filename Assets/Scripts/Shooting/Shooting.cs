@@ -4,11 +4,14 @@ using UnityEngine;
 
 public class Shooting : MonoBehaviour
 {
-    [SerializeField] protected float rateo;
+    [SerializeField] public float rateo;
     [SerializeField] GameObject bomb;
+    [HideInInspector] public int rangeOfExplosion;
 
     protected void Shoot()
     {
-        Instantiate(bomb, new (Mathf.Round(transform.position.x), Mathf.Round(transform.position.y)), Quaternion.identity);
+        GameObject b = bomb;
+        b.GetComponent<Bomb>().explosionRange = rangeOfExplosion;
+        Instantiate(b, new (Mathf.Round(transform.position.x), Mathf.Round(transform.position.y)), Quaternion.identity);
     }
 }
