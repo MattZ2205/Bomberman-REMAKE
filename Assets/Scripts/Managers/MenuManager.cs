@@ -32,11 +32,10 @@ public class MenuManager : MonoBehaviour
         AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         asyncOperation.allowSceneActivation = false;
 
-        //while (!asyncOperation.isDone)
-        //{
-        //    Debug.Log("wait");
-        //    yield return null;
-        //}
+        while (asyncOperation.progress <= 0.8f)
+        {
+            yield return null;
+        }
         continueText.SetActive(true);
 
         while (!Input.GetKeyDown(KeyCode.Space))
